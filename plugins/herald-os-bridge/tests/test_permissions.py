@@ -1,0 +1,237 @@
+"""Behaviour contracts for the permission engine."""
+
+from __future__ import annotations
+
+import importlib
+import sys
+from pathlib import Path
+
+import pytest
+
+
+def _perm(plugin):
+    return importlib.import_module(plugin.__name__ + ".bridge.permissions")
+
+
+def test_destructive_can_never_be_allowed_by_policy(plugin):
+    perm = _perm(plugin)
+    policy = perm.parse_policy({"tiers": {"destructive": "allow", "read": "deny"}})
+    assert policy.mode(perm.Tier.DESTRUCTIVE) == "confirm"
+    assert policy.mode(perm.Tier.READ) == "deny"
+
+
+def test_malformed_policy_falls_back_to_defaults(plugin):
+    perm = _perm(plugin)
+    policy = perm.parse_policy(["not", "a", "mapping"])
+    for tier, mode in perm.DEFAULT_TIER_MODES.items():
+        assert policy.mode(tier) == mode
+
+
+def test_protected_paths_include_builtin_and_user_entries(plugin, isolated_home):
+    perm = _perm(plugin)
+    policy = perm.parse_policy({"protected_paths": ["~/Documents/Taxes"]})
+    assert perm.protected_root(Path.home() / ".ssh" / "id_ed25519", policy) is not None
+    assert perm.protected_root(isolated_home / ".env", policy) is not None
+    assert perm.protected_root(Path.home() / "Documents" / "Taxes" / "2025.pdf", policy) is not None
+    assert perm.protected_root(Path.home() / "Documents" / "notes.txt", policy) is None
+
+
+def test_protected_paths_cover_linux_system_locations(plugin):
+    perm = _perm(plugin)
+    for root in ("/boot", "/var/lib", "/lib", "/lib64", "/proc", "/sys"):
+        assert root in perm.BUILTIN_PROTECTED
+    policy = perm.parse_policy({})
+    assert perm.protected_root(Path("/boot/vmlinuz"), policy) is not None
+    assert perm.protected_root(Path("/var/lib/dpkg/status"), policy) is not None
+    assert perm.protected_root(Path("/proc/1/status"), policy) is not None
+    assert perm.protected_root(Path("/var/log/syslog"), policy) is None
+
+
+def test_protected_paths_cover_the_linux_keyring(plugin):
+    perm = _perm(plugin)
+    assert "~/.local/share/keyrings" in perm.BUILTIN_PROTECTED
+    policy = perm.parse_policy({})
+    keyrings = Path.home() / ".local" / "share" / "keyrings"
+    for path in (keyrings, keyrings / "login.keyring", keyrings / "default"):
+        assert perm.protected_root(path, policy) == keyrings
+    assert perm.protected_root(Path.home() / ".local" / "share" / "applications" / "x.desktop", policy) is None
+    assert perm.protected_root(Path.home() / ".local" / "share" / "keyrings-notes.txt", policy) is None
+
+
+def test_the_keyring_folder_follows_xdg_data_home(plugin, tmp_path, monkeypatch):
+    perm = _perm(plugin)
+    monkeypatch.setenv("XDG_DATA_HOME", str(tmp_path / "data"))
+    policy = perm.parse_policy({})
+    assert perm.protected_root(tmp_path / "data" / "keyrings" / "login.keyring", policy) == tmp_path / "data" / "keyrings"
+    assert perm.protected_root(tmp_path / "data" / "applications" / "x.desktop", policy) is None
+    # The usual place stays protected too.
+    assert perm.protected_root(Path.home() / ".local" / "share" / "keyrings" / "login.keyring", policy) is not None
+
+
+@pytest.mark.parametrize("value", ["", "relative/data", "$HOME/data"])
+def test_an_xdg_data_home_that_is_not_absolute_adds_nothing(plugin, monkeypatch, value):
+    perm = _perm(plugin)
+    monkeypatch.delenv("XDG_DATA_HOME", raising=False)
+    unset = perm.parse_policy({}).protected
+    monkeypatch.setenv("XDG_DATA_HOME", value)
+    assert perm.parse_policy({}).protected == unset
+
+
+def test_a_keyring_is_refused_through_a_link_before_any_prompt(plugin, isolated_home, tmp_path, monkeypatch):
+    perm = _perm(plugin)
+    monkeypatch.setenv("HOME", str(tmp_path / "home"))
+    monkeypatch.setattr(perm, "_cache", None)
+    keyrings = Path.home() / ".local" / "share" / "keyrings"
+    keyrings.mkdir(parents=True)
+    (keyrings / "login.keyring").write_text("[keyring]\n")
+    link = Path.home() / "Documents" / "notes"
+    link.parent.mkdir(parents=True)
+    link.symlink_to(keyrings / "login.keyring")
+    asked = []
+    monkeypatch.setattr(perm, "_confirm", lambda *a, **k: asked.append(a) or perm.Decision(True, "approved"))
+    for tier, action, path in ((perm.Tier.READ, "read", keyrings / "login.keyring"), (perm.Tier.MUTATE, "move", keyrings), (perm.Tier.DESTRUCTIVE, "delete", link)):
+        decision = perm.authorize("system_files", tier, action, f"{action} keyring", paths=[path])
+        assert not decision.allowed and decision.outcome == "protected", (action, path)
+    assert asked == []
+
+
+def test_protected_path_is_refused_before_any_prompt(plugin, monkeypatch):
+    perm = _perm(plugin)
+    asked = []
+    monkeypatch.setattr(perm, "_confirm", lambda *a, **k: asked.append(a) or perm.Decision(True, "approved"))
+    decision = perm.authorize("system_files", perm.Tier.MUTATE, "move", "move keys", paths=[Path.home() / ".ssh" / "config"])
+    assert not decision.allowed
+    assert decision.outcome == "protected"
+    assert asked == []
+
+
+def test_confirm_tier_uses_stable_key_for_mutate_and_fresh_key_for_destructive(plugin, monkeypatch):
+    perm = _perm(plugin)
+    keys = []
+
+    def fake_confirm(tool, reason, rule_key):
+        keys.append(rule_key)
+        return perm.Decision(True, "approved")
+
+    monkeypatch.setattr(perm, "_confirm", fake_confirm)
+    perm.authorize("system_files", perm.Tier.MUTATE, "mkdir", "create folder")
+    perm.authorize("system_files", perm.Tier.MUTATE, "mkdir", "create folder")
+    perm.authorize("system_kill_process", perm.Tier.DESTRUCTIVE, "kill", "kill node")
+    perm.authorize("system_kill_process", perm.Tier.DESTRUCTIVE, "kill", "kill node")
+    assert keys[0] == keys[1], "mutate actions share a rule key so 'always' can apply"
+    assert keys[2] != keys[3], "destructive actions never share a rule key"
+
+
+def test_read_tier_runs_without_confirmation(plugin, monkeypatch):
+    perm = _perm(plugin)
+    monkeypatch.setattr(perm, "_confirm", lambda *a, **k: (_ for _ in ()).throw(AssertionError("must not ask")))
+    assert perm.authorize("system_info", perm.Tier.READ, "read", "read info").allowed
+
+
+def test_confirm_fails_closed_without_approval_channel(plugin, monkeypatch):
+    perm = _perm(plugin)
+    monkeypatch.setitem(sys.modules, "tools", None)
+    monkeypatch.setitem(sys.modules, "tools.approval", None)
+    decision = perm._confirm("system_files", "mkdir", "herald_os:system_files:mkdir")
+    assert not decision.allowed
+    assert decision.outcome == "blocked"
+
+
+def test_policy_file_is_reloaded_when_it_changes(plugin, isolated_home):
+    perm = _perm(plugin)
+    path = perm.policy_path()
+    path.parent.mkdir(parents=True)
+    path.write_text("tiers:\n  act: deny\n")
+    assert perm.load_policy().mode(perm.Tier.ACT) == "deny"
+    import os
+    import time
+
+    path.write_text("tiers:\n  act: allow\n")
+    os.utime(path, (time.time() + 5, time.time() + 5))
+    assert perm.load_policy().mode(perm.Tier.ACT) == "allow"
+
+
+def test_a_scope_narrows_a_mutate_rule_key_and_no_scope_keeps_it(plugin, monkeypatch):
+    perm = _perm(plugin)
+    keys = []
+    monkeypatch.setattr(perm, "_confirm", lambda tool, reason, rule_key: keys.append(rule_key) or perm.Decision(True, "approved"))
+    perm.authorize("system_files", perm.Tier.MUTATE, "mkdir", "create folder")
+    perm.authorize("system_os", perm.Tier.MUTATE, "restart", "restart Wi-Fi", scope="wifi")
+    perm.authorize("system_os", perm.Tier.MUTATE, "restart", "restart sound", scope="sound")
+    perm.authorize("system_os", perm.Tier.MUTATE, "restart", "restart Wi-Fi", scope="wifi")
+    assert keys == ["herald_os:system_files:mkdir", "herald_os:system_os:restart:wifi", "herald_os:system_os:restart:sound", "herald_os:system_os:restart:wifi"]
+
+
+def _linked_home(tmp_path, monkeypatch):
+    """HOME given as a link path, as /home/<user> is where /home links to /var/home."""
+    real = tmp_path / "var" / "home" / "ana"
+    (real / ".local" / "share" / "keyrings").mkdir(parents=True)
+    (real / ".local" / "share" / "keyrings" / "login.keyring").write_text("[keyring]\n")
+    (real / ".ssh").mkdir()
+    (real / ".ssh" / "id_ed25519").write_text("key")
+    (real / "Documents").mkdir()
+    (real / "Documents" / "notes.txt").write_text("notes")
+    (tmp_path / "home").symlink_to(tmp_path / "var" / "home")
+    monkeypatch.setenv("HOME", str(tmp_path / "home" / "ana"))
+    monkeypatch.delenv("XDG_DATA_HOME", raising=False)
+    return real
+
+
+def test_a_linked_home_cannot_reach_the_real_keyring_or_ssh_folder(plugin, isolated_home, tmp_path, monkeypatch):
+    perm = _perm(plugin)
+    real = _linked_home(tmp_path, monkeypatch)
+    (tmp_path / "elsewhere").mkdir()
+    (tmp_path / "elsewhere" / "k").symlink_to(real / ".local" / "share" / "keyrings" / "login.keyring")
+    (tmp_path / "elsewhere" / "s").symlink_to(real / ".ssh")
+    policy = perm.parse_policy({})
+    for path in (real / ".local" / "share" / "keyrings" / "login.keyring", real / ".local" / "share" / "keyrings",
+                 tmp_path / "elsewhere" / "k", real / ".ssh" / "id_ed25519", tmp_path / "elsewhere" / "s",
+                 Path.home() / ".local" / "share" / "keyrings" / "login.keyring"):
+        assert perm.protected_root(path, policy) is not None, path
+    assert perm.protected_root(real / "Documents" / "notes.txt", policy) is None
+
+
+def test_a_linked_xdg_data_home_cannot_reach_the_real_keyring_folder(plugin, isolated_home, tmp_path, monkeypatch):
+    perm = _perm(plugin)
+    (tmp_path / "real-data" / "keyrings").mkdir(parents=True)
+    (tmp_path / "real-data" / "keyrings" / "login.keyring").write_text("[keyring]\n")
+    (tmp_path / "data").symlink_to(tmp_path / "real-data")
+    monkeypatch.setenv("XDG_DATA_HOME", str(tmp_path / "data"))
+    policy = perm.parse_policy({})
+    for path in (tmp_path / "real-data" / "keyrings" / "login.keyring", tmp_path / "data" / "keyrings" / "login.keyring", tmp_path / "real-data" / "keyrings"):
+        assert perm.protected_root(path, policy) is not None, path
+    assert perm.protected_root(tmp_path / "real-data" / "notes.txt", policy) is None
+
+
+def test_a_linked_home_is_refused_before_any_prompt(plugin, isolated_home, tmp_path, monkeypatch):
+    perm = _perm(plugin)
+    real = _linked_home(tmp_path, monkeypatch)
+    monkeypatch.setattr(perm, "_cache", None)
+    asked = []
+    monkeypatch.setattr(perm, "_confirm", lambda *a, **k: asked.append(a) or perm.Decision(True, "approved"))
+    decision = perm.authorize("system_files", perm.Tier.READ, "read", "read keyring", paths=[real / ".local" / "share" / "keyrings" / "login.keyring"])
+    assert not decision.allowed and decision.outcome == "protected"
+    assert asked == []
+
+
+def test_each_root_is_kept_once_whether_or_not_it_is_a_link(plugin, tmp_path, monkeypatch):
+    perm = _perm(plugin)
+    monkeypatch.setenv("HOME", str(tmp_path))
+    monkeypatch.delenv("XDG_DATA_HOME", raising=False)
+    protected = perm.parse_policy({}).protected
+    assert len(protected) == len(set(protected))
+    assert tmp_path / ".ssh" in protected
+
+
+def test_a_link_inside_a_protected_folder_is_refused_by_the_path_given(plugin, isolated_home, tmp_path, monkeypatch):
+    # Under a linked home, ~/.ssh/config is a link to a file outside: only the path as given, against the
+    # root as written, shows it is in ~/.ssh.
+    perm = _perm(plugin)
+    real = _linked_home(tmp_path, monkeypatch)
+    (tmp_path / "outside").mkdir()
+    (tmp_path / "outside" / "cfg").write_text("Host *")
+    (real / ".ssh" / "config").symlink_to(tmp_path / "outside" / "cfg")
+    policy = perm.parse_policy({})
+    assert perm.protected_root(Path.home() / ".ssh" / "config", policy) == Path.home() / ".ssh"
+    assert perm.protected_root(real / ".ssh" / "config", policy) is not None
+    assert perm.protected_root(tmp_path / "outside" / "cfg", policy) is None

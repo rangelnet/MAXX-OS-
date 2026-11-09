@@ -1,0 +1,139 @@
+# Herald OS Linux: the system packages, for the bootc image and the development VM. One per line.
+# Session.
+niri
+cage
+greetd
+seatd
+polkit
+dbus-daemon
+xdg-desktop-portal
+xdg-desktop-portal-gtk
+xdg-desktop-portal-gnome
+# The keyring apps keep passwords and sign-ins in (Secret Service, and the Secret portal for Flatpak
+# apps). niri only recommends it. It brings gcr3, whose prompter asks for a keyring's password.
+gnome-keyring
+xdg-user-dirs
+swaybg
+swaylock
+swayidle
+slurp
+wl-clipboard
+cliphist
+brightnessctl
+playerctl
+wtype
+pipewire
+pipewire-pulse
+wireplumber
+alsa-utils
+# Cloud images ship kernel-core only; the sound drivers (snd-hda-intel for the VM's audio) live here.
+kernel-modules
+NetworkManager
+NetworkManager-wifi
+# Firmware. Fedora split linux-firmware into packages it only recommends, and this list installs
+# without weak dependencies, so each one is named: Wi-Fi, Bluetooth, GPUs, CPU microcode and audio.
+# fedora-bootc:44 ships most of them today; naming them keeps them if the base trims its set.
+linux-firmware
+# Intel CNVi Wi-Fi firmware (iwlwifi): without it, most modern laptops (e.g. Surface Go) have no
+# wireless at all. dvm is the older Intel cards (Centrino, 6000 series).
+iwlwifi-mvm-firmware
+iwlwifi-dvm-firmware
+atheros-firmware
+brcmfmac-firmware
+mt7xxx-firmware
+realtek-firmware
+nxpwireless-firmware
+amd-gpu-firmware
+intel-gpu-firmware
+nvidia-gpu-firmware
+amd-ucode-firmware
+# Laptop sound: Intel's Sound Open Firmware DSPs (most Intel laptops since 2019 have no speakers or
+# built-in microphone without it) and the profiles that tell PipeWire how to use them, which the
+# base lacks, and the amplifier firmware some laptops' speakers need.
+alsa-sof-firmware
+alsa-ucm
+intel-audio-firmware
+cirrus-audio-firmware
+bluez
+upower
+# Electron runtime libraries and fonts.
+nss
+atk
+at-spi2-atk
+cups-libs
+gtk3
+libdrm
+mesa-libgbm
+mesa-dri-drivers
+alsa-lib
+libxkbcommon
+libXcomposite
+libXdamage
+libXrandr
+libXScrnSaver
+libxshmfence
+pango
+cairo
+google-noto-sans-fonts
+google-noto-emoji-color-fonts
+dejavu-sans-fonts
+liberation-fonts
+# What the CLIs and the shell shell out to.
+python3
+python3-pyyaml
+# herald-os keyring talks to the keyring over D-Bus (Gio). firewalld needs it too.
+python3-gobject-base
+# secret-tool, to store and look up keyring entries from a terminal.
+libsecret
+git
+tar
+xdg-utils
+glib2
+plocate
+fd-find
+librsvg2-tools
+libnotify
+iproute
+procps-ng
+util-linux
+# cmp, for firstboot.sh's login screen on a switched system.
+diffutils
+# Mount exFAT removable media (udisks has no exFAT support without these).
+exfatprogs
+grim
+socat
+curl
+# The system voice: flite says replies in English when Hermes's own voice fails. ffmpeg-free (and the
+# omakase apps' WebKitGTK) pull it in too; it is listed so the voice does not depend on them.
+flite
+# Herald Canvas converts HEIF and AVIF stills (libheif; HEVC-compressed HEIC photos also need RPM Fusion's
+# libheif-freeworld, which the image does not add) and TIFF, camera RAW and the like (ImageMagick) before opening them.
+libheif-tools
+ImageMagick
+# OCR, Flatpak software, the boot splash.
+tesseract
+tesseract-langpack-eng
+flatpak
+plymouth
+plymouth-scripts
+plymouth-plugin-script
+# The menu bar's quick panels and switches.
+power-profiles-daemon
+pulseaudio-utils
+wlsunset
+# The capture suite.
+wf-recorder
+zbar
+ffmpeg-free
+# Security: the firewall, firmware updates, fingerprint and security-key sign-in.
+firewalld
+fwupd
+fprintd
+fprintd-pam
+pam-u2f
+pamu2fcfg
+# Rescue terminal, and a browser, files and an editor for the Dock and system_open.
+foot
+firefox
+nautilus
+gnome-text-editor
