@@ -18,7 +18,7 @@ export function CameraBubble() {
       try {
         if (!(await window.heraldOS.capture.requestCamera())) {
           setDenied(true)
-          throw new Error('Herald OS is not allowed to use the camera (System Settings > Privacy & Security > Camera).')
+          throw new Error('MAXX OS is not allowed to use the camera (System Settings > Privacy & Security > Camera).')
         }
 
         stream = await navigator.mediaDevices.getUserMedia({ video: { width: { ideal: 480 }, height: { ideal: 480 }, facingMode: 'user' }, audio: false })

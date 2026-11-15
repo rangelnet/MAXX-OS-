@@ -1,7 +1,8 @@
 import { useStore } from '@nanostores/react'
 import { IconLayoutSidebarLeftCollapse, IconLayoutSidebarLeftExpand, IconPlus } from '@tabler/icons-react'
 import { useRef, useState } from 'react'
-import { AppGlyph, HermesAvatar } from '../components/app-icon.tsx'
+import { AppGlyph } from '../components/app-icon.tsx'
+import { UserProfileMenu } from '../features/auth/UserProfileMenu.tsx'
 import { cn } from '../lib/cn.ts'
 import { shortcutLabel } from '../lib/platform-labels.ts'
 import { useT } from '../store/i18n.ts'
@@ -74,14 +75,10 @@ export function Sidebar() {
       style={{ width: collapsed ? SIDEBAR_COLLAPSED : width }}
       data-collapsed={collapsed || undefined}
     >
-      <div className={cn(collapsed ? 'flex justify-center' : 'px-1')}>
-        <HermesAvatar size={collapsed ? 36 : 44} rounded={collapsed ? 9 : 11} />
-        {!collapsed && (
-          <>
-            <div className="mt-2.5 text-[15px] font-semibold leading-tight text-fg">Hermes</div>
-            <div className="mt-0.5 text-[11px] leading-snug text-fg-3 italic">{t('sidebar.tagline')}</div>
-          </>
-        )}
+      {/* BLOCO ÚNICO DE PERFIL DO USUÁRIO NO MAXX OS (Substitui o antigo bloco visual do Hermes) */}
+      <div className={cn('w-full', collapsed ? 'flex justify-center' : 'px-0.5')}>
+        <UserProfileMenu collapsed={collapsed} />
+        <span className="sr-only">{t('sidebar.tagline')}</span>
       </div>
 
       <nav className={cn('relative mt-5 flex flex-col gap-0.5', collapsed && 'w-full items-center')} aria-label={t('sidebar.pages')}>
@@ -132,7 +129,7 @@ export function Sidebar() {
                 aria-pressed={on}
                 className={cn('side-item group relative flex size-7 items-center justify-center rounded-lg transition-colors duration-150', on ? 'bg-white/14' : 'hover:bg-white/8')}
               >
-                <span className={cn('rounded-full shadow-[0_0_8px_currentColor] transition-[width,height]', on ? 'size-2.5' : 'size-2')} style={{ background: space.color, color: space.color }} />
+                <span className={cn('rounded-full shadow-[0_0_8px_currentColor] transition-[width,height]', on ? 'size-2.5' : 'size-2')} style={{ background: space?.color ?? '#FC5F16', color: space?.color ?? '#FC5F16' }} />
                 <span className="side-tip">{label}</span>
               </button>
             )
@@ -172,7 +169,7 @@ export function Sidebar() {
                   onClick={() => setActiveSpace(space.id)}
                   className={cn('flex h-7 items-center gap-2.5 rounded-lg px-2.5 text-[12.5px] transition-colors duration-150', on ? 'bg-white/14 text-fg' : 'text-fg-2 hover:bg-white/8 hover:text-fg')}
                 >
-                  <span className="size-2 shrink-0 rounded-full shadow-[0_0_8px_currentColor]" style={{ background: space.color, color: space.color }} />
+                  <span className="size-2 shrink-0 rounded-full shadow-[0_0_8px_currentColor]" style={{ background: space?.color ?? '#FC5F16', color: space?.color ?? '#FC5F16' }} />
                   <span className="min-w-0 truncate" title={label}>
                     {label}
                   </span>

@@ -123,7 +123,7 @@ export function VoiceSection() {
     setTested(null)
 
     try {
-      setTested(await speakWithFreeFallback('Hello. This is Hermes, speaking from Herald OS.', undefined, { notice: false }))
+      setTested(await speakWithFreeFallback('Hello. This is Hermes, speaking from MAXX OS.', undefined, { notice: false }))
       config.reload()
       markSaved()
     } catch (error) {
@@ -188,7 +188,7 @@ export function VoiceSection() {
         <SettingsRow
           icon={<IconMicrophone />}
           label="Microphone access"
-          description={mic === 'granted' ? 'Granted.' : mic === 'denied' || mic === 'restricted' ? 'Denied. Allow Herald OS under System Settings > Privacy & Security > Microphone.' : 'Not asked yet; the first conversation asks.'}
+          description={mic === 'granted' ? 'Granted.' : mic === 'denied' || mic === 'restricted' ? 'Denied. Allow MAXX OS under System Settings > Privacy & Security > Microphone.' : 'Not asked yet; the first conversation asks.'}
           keywords="permission privacy"
         >
           {(mic === 'denied' || mic === 'restricted') && canOpenPrivacyPanes() && (

@@ -37,7 +37,7 @@ vi.mock('../store/windows.ts', async importOriginal => ({
 
 const ENV = { hermesHome: '/h/.hermes', homeDir: '/h', version: '0.0.0', isDev: false }
 const WM = $wm.get()
-const CALC_WINDOW: WmWindow = { id: 7, title: 'Herald OS · Calc', appId: 'herald-os', pid: 1, workspaceId: 1, focused: false, floating: true, urgent: false, ours: true }
+const CALC_WINDOW: WmWindow = { id: 7, title: 'MAXX OS · Calc', appId: 'herald-os', pid: 1, workspaceId: 1, focused: false, floating: true, urgent: false, ours: true }
 
 let root: Root | null = null
 let container: HTMLElement

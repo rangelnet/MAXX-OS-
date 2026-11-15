@@ -16,6 +16,8 @@ import { StatusPanelPopover } from './StatusPanelPopover.tsx'
 import { Toasts } from './Toasts.tsx'
 import { Wallpaper } from './Wallpaper.tsx'
 import { HermesLoginCard } from '../features/auth/HermesLoginCard.tsx'
+import { LockScreen } from '../features/auth/LockScreen.tsx'
+import { ProfileDialogs } from '../features/auth/ProfileDialogs.tsx'
 import { Screensaver } from '../features/screensaver/Screensaver.tsx'
 import { $screensaverUp } from '../store/switches.ts'
 import { ActionHud, OsHighlighter } from '../features/voice/ActionHud.tsx'
@@ -141,6 +143,8 @@ export function Desktop() {
       <AskOverlay />
       <EmojiOverlay />
       {screensaverUp && <Screensaver onDismiss={() => $screensaverUp.set(false)} />}
+      <LockScreen />
+      <ProfileDialogs />
     </div>
   )
 }

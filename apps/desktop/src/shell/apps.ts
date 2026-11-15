@@ -4,7 +4,7 @@ import type { InstalledApp } from '../../shared/ipc.ts'
 import { t } from '../store/i18n.ts'
 
 /** Pages inside the main Hermes window (sidebar navigation). */
-export type PageId = 'overview' | 'hermes' | 'missions' | 'memory' | 'files' | 'automations' | 'connections' | 'settings'
+export type PageId = 'overview' | 'hermes' | 'maxx-ia' | 'missions' | 'memory' | 'files' | 'automations' | 'connections' | 'settings'
 
 /** Apps that open in their own floating window. */
 export type FloatingAppId = 'terminal' | 'system' | 'chat-popout' | 'web' | 'studio' | 'capture-editor' | 'camera' | 'widget' | 'canvas' | 'docs' | 'sheets' | 'slides' | 'room' | 'calc'
@@ -28,6 +28,7 @@ export interface HermesAppDef<Id extends HermesAppId = HermesAppId> {
 
 export type AppIconId =
   | 'hermes'
+  | 'maxx-ia'
   | 'overview'
   | 'missions'
   | 'memory'
@@ -53,6 +54,7 @@ export type AppIconId =
 export const PAGES: readonly HermesAppDef<PageId>[] = [
   { id: 'overview', name: 'Overview', tagline: 'Your day, already in motion.', category: 'productivity', kind: 'page', icon: 'overview', shortcut: '1' },
   { id: 'hermes', name: 'Hermes', tagline: 'Talk to your computer.', category: 'productivity', kind: 'page', icon: 'hermes', shortcut: '2' },
+  { id: 'maxx-ia', name: 'MAXX IA', tagline: 'Inteligência Artificial Operacional.', category: 'productivity', kind: 'page', icon: 'maxx-ia', shortcut: '0' },
   { id: 'missions', name: 'Missions', tagline: 'From intent to finished work.', category: 'productivity', kind: 'page', icon: 'missions', shortcut: '3' },
   { id: 'memory', name: 'Memory', tagline: 'What Hermes knows, and why.', category: 'productivity', kind: 'page', icon: 'memory', shortcut: '4' },
   { id: 'files', name: 'Files', tagline: 'Everything on this Mac.', category: 'productivity', kind: 'page', icon: 'files', shortcut: '5' },
@@ -66,7 +68,7 @@ export const FLOATING_APPS: readonly HermesAppDef<FloatingAppId>[] = [
   { id: 'system', name: 'System', tagline: 'Monitor and control your Mac.', category: 'system', kind: 'window', icon: 'system', defaultSize: { width: 980, height: 640 }, shortcut: '9' },
   { id: 'chat-popout', name: 'Hermes', tagline: 'A conversation in its own window.', category: 'productivity', kind: 'window', icon: 'hermes', defaultSize: { width: 820, height: 620 } },
   // Opened by the shell for a specific page (e.g. the provider sign-in); not launchable on its own.
-  { id: 'web', name: 'Web', tagline: 'A page inside Herald OS.', category: 'productivity', kind: 'window', icon: 'grid', defaultSize: { width: 960, height: 680 } },
+  { id: 'web', name: 'Web', tagline: 'A page inside MAXX OS.', category: 'productivity', kind: 'window', icon: 'grid', defaultSize: { width: 960, height: 680 } },
   // One per Hermes session; opened with "build …" or "show me the code".
   { id: 'studio', name: 'Studio', tagline: 'Watch Hermes build.', category: 'development', kind: 'window', icon: 'studio', defaultSize: { width: 1280, height: 800 } },
   // Opens on a screenshot (the capture preview's Edit).
@@ -74,12 +76,12 @@ export const FLOATING_APPS: readonly HermesAppDef<FloatingAppId>[] = [
   { id: 'camera', name: 'Camera', tagline: 'Your camera in a bubble, for screen recordings.', category: 'creative', kind: 'window', icon: 'system', defaultSize: { width: 260, height: 290 } },
   // A widget plugin in its own window (its `panel` placement); opened with plugin.open.
   { id: 'widget', name: 'Widget', tagline: 'A widget plugin in a window.', category: 'productivity', kind: 'window', icon: 'grid', defaultSize: { width: 360, height: 280 } },
-  { id: 'canvas', name: 'Herald Canvas', tagline: 'Edit images in layers, with Hermes.', category: 'creative', kind: 'window', icon: 'canvas', defaultSize: { width: 1320, height: 840 } },
-  { id: 'docs', name: 'Herald Docs', tagline: 'Write and edit documents, with Hermes.', category: 'productivity', kind: 'window', icon: 'docs', defaultSize: { width: 1120, height: 840 } },
-  { id: 'sheets', name: 'Herald Sheets', tagline: 'Spreadsheets and formulas, with Hermes.', category: 'productivity', kind: 'window', icon: 'sheets', defaultSize: { width: 1280, height: 820 } },
-  { id: 'slides', name: 'Herald Slides', tagline: 'Make presentations, with Hermes.', category: 'productivity', kind: 'window', icon: 'slides', defaultSize: { width: 1280, height: 820 } },
+  { id: 'canvas', name: 'MAXX Canvas', tagline: 'Edit images in layers, with Hermes.', category: 'creative', kind: 'window', icon: 'canvas', defaultSize: { width: 1320, height: 840 } },
+  { id: 'docs', name: 'MAXX Docs', tagline: 'Write and edit documents, with Hermes.', category: 'productivity', kind: 'window', icon: 'docs', defaultSize: { width: 1120, height: 840 } },
+  { id: 'sheets', name: 'MAXX Sheets', tagline: 'Spreadsheets and formulas, with Hermes.', category: 'productivity', kind: 'window', icon: 'sheets', defaultSize: { width: 1280, height: 820 } },
+  { id: 'slides', name: 'MAXX Slides', tagline: 'Make presentations, with Hermes.', category: 'productivity', kind: 'window', icon: 'slides', defaultSize: { width: 1280, height: 820 } },
   { id: 'room', name: 'Pet Room', tagline: 'Watch Hermes at work.', category: 'productivity', kind: 'window', icon: 'room', defaultSize: { width: 1100, height: 720 } },
-  { id: 'calc', name: 'Herald Calc', tagline: 'Math in plain sentences, exact every time.', category: 'productivity', kind: 'window', icon: 'calc', defaultSize: { width: 780, height: 560 } }
+  { id: 'calc', name: 'MAXX Calc', tagline: 'Math in plain sentences, exact every time.', category: 'productivity', kind: 'window', icon: 'calc', defaultSize: { width: 780, height: 560 } }
 ]
 
 /** Floating apps the launcher and command bar offer; the rest open only with a payload. */
@@ -92,6 +94,7 @@ export const appById = (id: HermesAppId): HermesAppDef => HERMES_APPS.find(a => 
 const APP_NAMES: Record<HermesAppId, TextKey> = {
   overview: 'app.overview',
   hermes: 'app.hermes',
+  'maxx-ia': 'app.maxxIa',
   missions: 'app.missions',
   memory: 'app.memory',
   files: 'app.files',

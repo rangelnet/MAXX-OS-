@@ -230,8 +230,8 @@ export function MenuBar() {
     <header className="drag-region absolute inset-x-0 top-0 z-(--z-menubar) flex h-(--menubar-h) items-center justify-between px-3 text-[12.5px] text-fg select-none" style={{ background: 'linear-gradient(180deg, var(--menubar-from, rgba(3,10,40,.55)), var(--menubar-to, rgba(3,10,40,.15)))' }}>
       <div className="flex items-center gap-2.5 pl-[74px]">
         <HeraldLogo height={12} />
-        <span className="font-semibold">Herald OS</span>
-        {title !== 'Herald OS' && (
+        <span className="font-semibold">MAXX OS</span>
+        {title !== 'MAXX OS' && (
           <>
             <span className="text-fg-4">·</span>
             <span className="text-fg-2">{title}</span>
@@ -246,13 +246,13 @@ export function MenuBar() {
           onClick={() => setSpaceMenu(v => !v)}
           className="flex h-6 items-center gap-1.5 rounded-full border border-line-strong bg-accent/35 px-3 text-[12px] font-medium text-fg shadow-[0_2px_10px_rgba(47,125,255,.35)] hover:bg-accent/50"
         >
-          <span className="size-1.5 rounded-full" style={{ background: space.color }} />
-          {spaceLabel(space)}
+          <span className="size-1.5 rounded-full" style={{ background: space?.color ?? '#FC5F16' }} />
+          {space ? spaceLabel(space) : 'MAXX'}
           <IconChevronDown size={13} className="text-fg-2" />
         </button>
         {spaceMenu && (
           <div className="float absolute top-8 left-1/2 w-48 -translate-x-1/2 overflow-hidden rounded-xl p-1 animate-pop">
-            {spaces.map(s => (
+            {(spaces || []).map(s => (
               <button
                 key={s.id}
                 type="button"
@@ -260,11 +260,11 @@ export function MenuBar() {
                   setActiveSpace(s.id)
                   setSpaceMenu(false)
                 }}
-                className={cn('flex h-8 w-full items-center gap-2.5 rounded-lg px-2.5 text-[12.5px] hover:bg-white/8', s.id === space.id ? 'text-fg' : 'text-fg-2')}
+                className={cn('flex h-8 w-full items-center gap-2.5 rounded-lg px-2.5 text-[12.5px] hover:bg-white/8', s.id === space?.id ? 'text-fg' : 'text-fg-2')}
               >
-                <span className="size-2 rounded-full" style={{ background: s.color }} />
+                <span className="size-2 rounded-full" style={{ background: s?.color ?? '#FC5F16' }} />
                 <span className="flex-1 text-left">{spaceLabel(s)}</span>
-                {s.id === space.id && <IconCheck size={14} className="text-accent-strong" />}
+                {s.id === space?.id && <IconCheck size={14} className="text-accent-strong" />}
               </button>
             ))}
           </div>

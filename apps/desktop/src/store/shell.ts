@@ -82,13 +82,13 @@ let bound = false
 
 /** Wire compositor state and inbound commands once per renderer window. */
 export function bindShell(): void {
-  if (bound) {
+  if (bound || typeof window === 'undefined' || !window.heraldOS?.shell) {
     return
   }
 
   bound = true
 
-  if (isPanels) {
+  if (isPanels && window.heraldOS.wm) {
     window.heraldOS.wm
       .getState()
       .then(state => $wm.set(state))

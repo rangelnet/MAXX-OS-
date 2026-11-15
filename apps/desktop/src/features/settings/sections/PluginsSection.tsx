@@ -12,7 +12,7 @@ import { openApp } from '../../../store/windows.ts'
 import { useT } from '../../../store/i18n.ts'
 import { errorText, InlineNote, markSaved, SectionTitle, SettingsGroup, SettingsRow } from './shared.tsx'
 
-const MAKE_A_WIDGET = 'Make me a Herald OS widget that '
+const MAKE_A_WIDGET = 'Make me a MAXX OS widget that '
 
 /*
  * Settings > Plugins: widgets for the menu bar, the Overview and their own windows (ADR-019). Each

@@ -9,8 +9,8 @@ import type { WmState } from '../../../shared/ipc.ts'
  */
 
 /** The titles main gives the Dock's window and its menu's (electron/shell/mode.ts). */
-export const DOCK_TITLE = 'Herald OS · Dock'
-export const DOCK_MENU_TITLE = 'Herald OS · Dock Menu'
+export const DOCK_TITLE = 'MAXX OS · Dock'
+export const DOCK_MENU_TITLE = 'MAXX OS · Dock Menu'
 /** Each menu's window opens under this name and a number of its own; main lets only those open. */
 export const DOCK_MENU_NAME = 'herald-dock-menu'
 /** Room around the menu in its window for its shadow. */

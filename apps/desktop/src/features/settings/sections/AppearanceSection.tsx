@@ -222,7 +222,7 @@ function ThemeTools() {
       <SettingsRow
         icon={<IconWand />}
         label="Make a theme from an image"
-        description="Herald OS takes the colours of a photo or artwork, makes a complete theme from them, and uses the image as the wallpaper. You can also ask Hermes for one: “make me a calm green theme”."
+        description="MAXX OS takes the colours of a photo or artwork, makes a complete theme from them, and uses the image as the wallpaper. You can also ask Hermes for one: “make me a calm green theme”."
         keywords="generate create custom wallpaper colours"
         below={error ? <InlineNote tone="danger">{error}</InlineNote> : undefined}
       >
@@ -248,7 +248,7 @@ function ThemeTools() {
           {working === 'install' ? 'Installing…' : 'Install'}
         </GlassButton>
       </SettingsRow>
-      <SettingsRow icon={<IconSparkles />} label="Follow Hermes skins" description="When you change Hermes's skin with /skin, Herald OS takes on its colours too. Herald's own themes always restyle Hermes." keywords="skin hermes cli tui sync">
+      <SettingsRow icon={<IconSparkles />} label="Follow Hermes skins" description="When you change Hermes's skin with /skin, MAXX OS takes on its colours too. Herald's own themes always restyle Hermes." keywords="skin hermes cli tui sync">
         <Toggle
           checked={Boolean(prefs.followHermesSkin)}
           onChange={next => {

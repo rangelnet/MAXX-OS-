@@ -6,6 +6,14 @@ import { cn } from '../lib/cn.ts'
 
 const PATHS: Record<AppIconId, React.ReactNode> = {
   hermes: null,
+  'maxx-ia': (
+    <>
+      <circle cx="12" cy="12" r="8" strokeDasharray="3 3" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+      <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
+    </>
+  ),
   overview: <path d="M4 11.5 12 5l8 6.5V19a1 1 0 0 1-1 1h-4v-5h-6v5H5a1 1 0 0 1-1-1z" />,
   missions: (
     <>
