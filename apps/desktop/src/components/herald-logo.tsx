@@ -1,8 +1,11 @@
 // Imported (not a public URL) so Vite rewrites it relative to `base` for the packaged `file://` renderer.
-import heraldMarkUrl from '../assets/brand/herald-mark.png'
+import maxxMarkUrl from '../assets/brand/maxx-mark.svg'
 import { cn } from '../lib/cn.ts'
 
-/** The Herald winged H, shared with the Herald mobile app. White on transparency; sized by height. */
+/** MAXX OS mark on transparency; the export keeps the blue-to-cyan identity at every size. */
 export function HeraldLogo({ height = 14, className }: { height?: number; className?: string }) {
-  return <img src={heraldMarkUrl} alt="Herald OS" height={height} style={{ height, width: 'auto' }} draggable={false} className={cn('shrink-0 select-none', className)} />
+  return <img src={maxxMarkUrl} alt="MAXX OS" height={height} style={{ height, width: 'auto' }} draggable={false} className={cn('shrink-0 select-none', className)} />
 }
+
+/** MAXX OS official logo component */
+export const MaxxLogo = HeraldLogo

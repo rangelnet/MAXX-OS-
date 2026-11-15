@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 96" fill="none" role="img" aria-labelledby="title">
+  <title id="title">MAXX OS</title>
+  <defs>
+    <linearGradient id="maxx" x1="11" y1="78" x2="117" y2="18" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2878ff"/>
+      <stop offset=".52" stop-color="#49c8ff"/>
+      <stop offset="1" stop-color="#69e8ff"/>
+    </linearGradient>
+    <linearGradient id="orange" x1="320" y1="20" x2="400" y2="80" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffad33"/>
+      <stop offset="1" stop-color="#ff6b18"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(0 0)">
+    <path d="M12 78V18h18l34 40 34-40h18v60" stroke="url(#maxx)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M30 53v25M98 53v25" stroke="url(#maxx)" stroke-width="10" stroke-linecap="round"/>
+  </g>
+  <text x="140" y="66" fill="#f7fbff" font-family="Inter, Arial, sans-serif" font-size="52" font-weight="700" letter-spacing="8">MA</text>
+  <text x="248" y="66" fill="url(#orange)" font-family="Inter, Arial, sans-serif" font-size="52" font-weight="700" letter-spacing="8">XX</text>
+  <text x="359" y="66" fill="#a8b9d0" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="600" letter-spacing="3">OS</text>
+</svg>
