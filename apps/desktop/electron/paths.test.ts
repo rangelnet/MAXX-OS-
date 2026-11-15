@@ -1,6 +1,9 @@
+import { mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import os from 'node:os'
+import path from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { devServerUrl, isDev, isShellPage, rendererIndex, setPackaged } from './paths.ts'
+import { devServerUrl, isDev, isShellPage, rendererIndex, setAppNamePreservingUserData, setPackaged } from './paths.ts'
 
 const index = '/Applications/Herald OS.app/Contents/Resources/app.asar/dist/renderer/index.html'
 const page = pathToFileURL(index).href
@@ -89,5 +92,55 @@ describe('before main says whether it is installed', () => {
     const fresh = await import('./paths.ts')
 
     expect(fresh.devServerUrl({ HERALD_OS_DEV_SERVER: 'http://127.0.0.1:5180' })).toBeUndefined()
+  })
+})
+
+describe('setAppNamePreservingUserData', () => {
+  let appData: string
+
+  beforeEach(() => {
+    appData = mkdtempSync(path.join(os.tmpdir(), 'maxx-t006-'))
+  })
+
+  afterEach(() => {
+    rmSync(appData, { recursive: true, force: true })
+  })
+
+  function electronApp() {
+    let appName = 'MAXX OS'
+    let userData = path.join(appData, appName)
+
+    return {
+      getPath: (name: 'appData' | 'userData') => name === 'appData' ? appData : userData,
+      setName: (name: string) => {
+        appName = name
+        userData = path.join(appData, appName)
+      },
+      setPath: (name: 'userData', value: string) => {
+        expect(name).toBe('userData')
+        userData = value
+      },
+      selectedUserData: () => userData
+    }
+  }
+
+  it('selects an existing Herald profile when Electron initially resolves MAXX OS', () => {
+    const app = electronApp()
+    const legacyUserData = path.join(appData, 'Herald OS')
+    mkdirSync(legacyUserData)
+    const preferences = path.join(legacyUserData, 'Preferences')
+    writeFileSync(preferences, '{"fixture":"preserve"}')
+
+    expect(setAppNamePreservingUserData(app, 'MAXX OS')).toBe(legacyUserData)
+    expect(app.selectedUserData()).toBe(legacyUserData)
+    expect(readFileSync(preferences, 'utf8')).toBe('{"fixture":"preserve"}')
+  })
+
+  it('keeps Electron default when no Herald profile exists', () => {
+    const app = electronApp()
+    const defaultUserData = path.join(appData, 'MAXX OS')
+
+    expect(setAppNamePreservingUserData(app, 'MAXX OS')).toBe(defaultUserData)
+    expect(app.selectedUserData()).toBe(defaultUserData)
   })
 })

@@ -102,7 +102,7 @@ describe('the niri window a new menu became', () => {
   const state = (windows: WmWindow[]): WmState => ({ available: true, windows, workspaces: [], focusedWindowId: null })
 
   it('is the newest of ours with its title that was not there before', () => {
-    const windows = [win(3, DOCK_MENU_TITLE), win(8, DOCK_MENU_TITLE), win(6, DOCK_MENU_TITLE), win(9, 'Herald OS · Dock'), win(12, DOCK_MENU_TITLE, false)]
+    const windows = [win(3, DOCK_MENU_TITLE), win(8, DOCK_MENU_TITLE), win(6, DOCK_MENU_TITLE), win(9, 'MAXX OS · Dock'), win(12, DOCK_MENU_TITLE, false)]
 
     expect(freshWindow(state(windows), DOCK_MENU_TITLE, new Set([3]))?.id).toBe(8)
     expect(freshWindow(state(windows), DOCK_MENU_TITLE, new Set([3, 6, 8]))).toBeNull()

@@ -44,7 +44,7 @@ const SIGNED_OUT_AUTH = $hermesAuth.get()
 
 // What may read the same in every language: product names, and the keyboard shortcuts, commands
 // and units that stay as they are (en.ts says which). The longer command goes first.
-const KEPT = ['Herald OS', 'Hermes', 'OpenRouter', 'Super+Space', 'Super+M', 'herald-os password --disk --new-owner', 'herald-os keyring setup --password', 'herald-os password', 'API', 'GHz', 'TPM', 'FIDO2', 'VS Code', 'Signal', 'GitHub CLI']
+const KEPT = ['MAXX OS', 'MAXX', 'Herald OS', 'Hermes', 'OpenRouter', 'Super+Space', 'Super+M', 'herald-os password --disk --new-owner', 'herald-os keyring setup --password', 'herald-os password', 'API', 'GHz', 'TPM', 'FIDO2', 'VS Code', 'Signal', 'GitHub CLI']
 
 // Portuguese words spelled as English ones are ("o menu", "for ligado", "use pelo menos", "um terminal",
 // "teclado Bluetooth", "os apps").
@@ -475,8 +475,8 @@ describe('first-run setup', () => {
     const steps = await walk('en', path)
     const all = steps.flatMap(step => step.texts)
 
-    expect(all).toContain('Welcome to Herald OS')
-    expect(all).toContain('Set up Herald OS')
+    expect(all).toContain('Welcome to MAXX OS')
+    expect(all).toContain('Set up MAXX OS')
     expect(all).toContain(path === 'someone else' ? 'Ready to hand over' : 'You are all set')
     if (path !== 'someone else') {
       expect(all).toContain('It is for me')
