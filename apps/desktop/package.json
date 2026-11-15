@@ -1,9 +1,9 @@
 {
   "name": "@herald-os/desktop",
-  "productName": "Herald OS",
+  "productName": "MAXX OS",
   "version": "0.1.0-alpha.5",
   "private": true,
-  "description": "The Herald OS shell: menu bar, dock, windows and apps for an agent-native operating system.",
+  "description": "The MAXX OS shell: menu bar, dock, windows and apps for an agent-native operating system.",
   "author": "Luke The Dev",
   "license": "MIT",
   "type": "module",
@@ -51,6 +51,7 @@
     "@tiptap/react": "3.31.4",
     "@tiptap/starter-kit": "3.31.4",
     "@tiptap/suggestion": "3.31.4",
+    "@types/three": "^0.187.0",
     "@univerjs/core": "1.0.3",
     "@univerjs/data-validation": "1.0.3",
     "@univerjs/design": "1.0.3",
@@ -116,6 +117,7 @@
     "remark-gfm": "4.0.1",
     "rxjs": "7.8.2",
     "shiki": "4.4.3",
+    "three": "^0.187.0",
     "yaml": "2.9.1"
   },
   "devDependencies": {
@@ -139,9 +141,9 @@
   },
   "build": {
     "appId": "dev.iamluke.heraldos",
-    "productName": "Herald OS",
-    "executableName": "Herald OS",
-    "artifactName": "HeraldOS-${version}-${os}-${arch}.${ext}",
+    "productName": "MAXX OS",
+    "executableName": "MAXX OS",
+    "artifactName": "MAXXOS-${version}-${os}-${arch}.${ext}",
     "directories": {
       "output": "release"
     },
@@ -225,12 +227,12 @@
         }
       ],
       "extendInfo": {
-        "NSAppleEventsUsageDescription": "Herald OS controls applications on your behalf when you ask it to.",
-        "NSMicrophoneUsageDescription": "Herald OS uses the microphone for voice input.",
-        "NSCameraUsageDescription": "Herald OS shows your camera in a bubble while you record the screen, when you turn it on.",
-        "NSCalendarsFullAccessUsageDescription": "Herald OS shows today's events on the Overview, and gives their titles and times to Hermes when you turn on Pick up where you left off.",
-        "NSCalendarsUsageDescription": "Herald OS shows today's events on the Overview, and gives their titles and times to Hermes when you turn on Pick up where you left off.",
-        "NSLocalNetworkUsageDescription": "Herald OS lets Hermes reach the devices on your local network that you set it up to use, such as a computer that runs your model."
+        "NSAppleEventsUsageDescription": "MAXX OS controls applications on your behalf when you ask it to.",
+        "NSMicrophoneUsageDescription": "MAXX OS uses the microphone for voice input.",
+        "NSCameraUsageDescription": "MAXX OS shows your camera in a bubble while you record the screen, when you turn it on.",
+        "NSCalendarsFullAccessUsageDescription": "MAXX OS shows today's events on the Overview, and gives their titles and times to Hermes when you turn on Pick up where you left off.",
+        "NSCalendarsUsageDescription": "MAXX OS shows today's events on the Overview, and gives their titles and times to Hermes when you turn on Pick up where you left off.",
+        "NSLocalNetworkUsageDescription": "MAXX OS lets Hermes reach the devices on your local network that you set it up to use, such as a computer that runs your model."
       }
     },
     "dmg": {
@@ -275,7 +277,7 @@
       ],
       "desktop": {
         "entry": {
-          "Name": "Herald OS",
+          "Name": "MAXX OS",
           "Comment": "Agent-native desktop powered by Hermes Agent",
           "Categories": "System;"
         }

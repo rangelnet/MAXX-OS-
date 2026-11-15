@@ -1,11 +1,11 @@
 <p align="center">
-  <img src="apps/desktop/build/icon.png" alt="Herald OS" width="112">
+  <img src="apps/desktop/build/icon.png" alt="MAXX OS" width="112">
 </p>
 
-<h1 align="center">Herald OS</h1>
+<h1 align="center">MAXX OS</h1>
 
 <p align="center">
-  An agent-native operating system, with <a href="https://github.com/NousResearch/hermes-agent">Hermes Agent</a> as the interface.
+  A development derivative of Herald OS, being adapted as MAXX OS while preserving the original project’s architecture and notices.
 </p>
 
 <p align="center">
@@ -17,14 +17,14 @@
 
 ![The Herald OS desktop](docs/images/desktop.png)
 
-Herald OS is an operating system built around an AI agent. Instead of working through menus and
+This local development copy is being adapted from Herald OS, an operating system built around an AI agent. Instead of working through menus and
 folders yourself, you talk or type to Hermes, and it works across the whole machine: it opens apps,
 finds and organises files, watches what is running, remembers what matters to you, runs routines on
 a schedule, and builds software while you watch. Every action that changes something goes through a
 permission system you control.
 
 > [!NOTE]
-> **Herald OS is an independent project by [Luke The Dev](https://github.com/iamlukethedev).** It is
+> **Herald OS is an independent project by [Luke The Dev](https://github.com/iamlukethedev); MAXX OS is a separate local derivative under development.** It is
 > not an official Hermes or Nous Research product, and it is not affiliated with, sponsored by or
 > endorsed by Nous Research. Herald OS runs on [Hermes Agent](https://github.com/NousResearch/hermes-agent),
 > the open-source agent Nous Research publishes, which is installed alongside it.

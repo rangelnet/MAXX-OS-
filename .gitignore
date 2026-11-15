@@ -52,3 +52,10 @@ linux/vm/build/
 
 # bootc-image-builder's output folder (docs/BUILDING-THE-IMAGE.md).
 /output/
+
+# Reversa governance, memory mesh and internal workstreams
+.reversa/
+_obsidian_memoria/
+_reversa_forward/
+_reversa_sdd/
+MAXX-OS-MAPA-CENTRAL.md
