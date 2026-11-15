@@ -1,8 +1,9 @@
-import type { HeraldOSApi } from '../../preload/index.ts'
+import type { HeraldOSApi, MaxxOSApi } from '../../preload/index.ts'
 
 declare global {
   interface Window {
     heraldOS: HeraldOSApi
+    maxxOS: MaxxOSApi
   }
 }
 

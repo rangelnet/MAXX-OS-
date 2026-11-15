@@ -9,20 +9,26 @@ import { devServerUrl, isShellPage, rendererIndex } from './paths.ts'
 
 const here = path.dirname(fileURLToPath(import.meta.url))
 
-/** The Herald icon: the 1024 px source in a checkout, the renderer's 256 px copy in a package. */
+/** The MAXX OS icon: the 1024 px source in a checkout, the renderer's 256 px copy in a package. */
 export function appIconPath(): string | undefined {
   const root = app.getAppPath()
 
-  return [path.join(root, 'build', 'icon.png'), path.join(root, 'dist', 'renderer', 'brand', 'herald-icon.png')].find(file => fs.existsSync(file))
+  return [
+    path.join(root, 'build', 'icon.png'),
+    path.join(root, 'public', 'brand', 'maxx-icon.png'),
+    path.join(root, 'dist', 'renderer', 'brand', 'maxx-icon.png'),
+    path.join(root, 'dist', 'renderer', 'brand', 'herald-icon.png')
+  ].find(file => fs.existsSync(file))
 }
 
 export function createMainWindow(prefs: HeraldOSPrefs): BrowserWindow {
   const { workAreaSize } = screen.getPrimaryDisplay()
-  // Herald OS Linux: the shell is the whole session (cage hands it the only output). Kiosk mode
+  // MAXX OS Linux: the shell is the whole session (cage hands it the only output). Kiosk mode
   // removes every escape hatch a window manager would normally offer.
   const kiosk = osEnv('KIOSK') === '1'
   const darwin = process.platform === 'darwin'
   const win = new BrowserWindow({
+    title: 'MAXX OS',
     width: workAreaSize.width,
     height: workAreaSize.height,
     minWidth: kiosk ? undefined : 1024,

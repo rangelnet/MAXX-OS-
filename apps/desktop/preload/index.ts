@@ -558,5 +558,7 @@ const api = {
 }
 
 export type HeraldOSApi = typeof api
+export type MaxxOSApi = typeof api
 
 contextBridge.exposeInMainWorld('heraldOS', api)
+contextBridge.exposeInMainWorld('maxxOS', api)

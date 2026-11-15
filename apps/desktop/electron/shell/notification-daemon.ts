@@ -79,7 +79,7 @@ class NotificationsInterface extends dbus.interface.Interface {
   }
 
   GetServerInformation(): [string, string, string, string] {
-    return ['Herald OS', 'Herald OS', '0.1', '1.2']
+    return ['MAXX OS', 'MAXX OS', '0.1', '1.2']
   }
 
   Notify(

@@ -1,7 +1,37 @@
 import os from 'node:os'
 import path from 'node:path'
+import { statSync } from 'node:fs'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { osEnv } from './env.ts'
+
+export interface AppIdentityApi {
+  getPath(name: 'appData' | 'userData'): string
+  setName(name: string): void
+  setPath(name: 'userData', path: string): void
+}
+
+function isDirectory(directory: string): boolean {
+  try {
+    return statSync(directory).isDirectory()
+  } catch {
+    return false
+  }
+}
+
+/** Change the visible app name while reusing an existing Herald profile when one is present. */
+export function setAppNamePreservingUserData(
+  app: AppIdentityApi,
+  name: string,
+  isProfileDirectory: (directory: string) => boolean = isDirectory
+): string {
+  const defaultUserData = app.getPath('userData')
+  const legacyUserData = path.join(app.getPath('appData'), 'Herald OS')
+  const userData = isProfileDirectory(legacyUserData) ? legacyUserData : defaultUserData
+
+  app.setName(name)
+  app.setPath('userData', userData)
+  return userData
+}
 
 /** Profile-aware Hermes home; mirrors upstream `get_hermes_home()` for the default profile. */
 export function hermesHome(): string {

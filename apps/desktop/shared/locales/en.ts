@@ -1,5 +1,5 @@
 /*
- * English: the source of every message Herald OS translates, and the text shown wherever another
+ * English: the source of every message MAXX OS translates, and the text shown wherever another
  * language has no translation yet. New strings go here first (docs/TRANSLATING.md).
  */
 export const en = {
@@ -14,26 +14,27 @@ export const en = {
   'menu.selectAll': 'Select All',
 
   'permission.openSettings': 'Open System Settings',
-  'permission.screen.title': 'Herald OS needs Screen Recording permission',
-  'permission.screen.detail': 'Turn on Herald OS in System Settings > Privacy & Security > Screen & System Audio Recording (called Screen Recording on older macOS), then quit and reopen Herald OS.',
+  'permission.screen.title': 'MAXX OS needs Screen Recording permission',
+  'permission.screen.detail': 'Turn on MAXX OS in System Settings > Privacy & Security > Screen & System Audio Recording (called Screen Recording on older macOS), then quit and reopen MAXX OS.',
   'permission.screen.open': 'Open System Settings',
   'permission.screen.reopen': 'Quit & Reopen',
   'permission.screen.notNow': 'Not Now',
   'permission.screen.restrictedTitle': 'Screen Recording is restricted on this Mac',
-  'permission.screen.restrictedDetail': 'A restriction on this Mac, such as a device-management profile, Screen Time or parental controls, decides whether Herald OS may record the screen, so the switch in System Settings may be locked. Ask whoever set the restriction to allow Screen Recording for Herald OS.',
+  'permission.screen.restrictedDetail': 'A restriction on this Mac, such as a device-management profile, Screen Time or parental controls, decides whether MAXX OS may record the screen, so the switch in System Settings may be locked. Ask whoever set the restriction to allow Screen Recording for MAXX OS.',
   'permission.screen.ok': 'OK',
-  'permission.typing.title': 'Allow Herald OS to type into other apps',
-  'permission.typing.detail': 'To put an emoji or dictation where your cursor is, Herald OS pastes it for you through System Events. macOS asks twice for that: whether Herald OS may control System Events (Automation), and for Accessibility. Until both are allowed, what you pick or dictate stays on the clipboard, ready to paste with Cmd+V.',
+  'permission.typing.title': 'Allow MAXX OS to type into other apps',
+  'permission.typing.detail': 'To put an emoji or dictation where your cursor is, MAXX OS pastes it for you through System Events. macOS asks twice for that: whether MAXX OS may control System Events (Automation), and for Accessibility. Until both are allowed, what you pick or dictate stays on the clipboard, ready to paste with Cmd+V.',
   'permission.typing.continue': 'Continue',
   'permission.typing.notNow': 'Not Now',
   'permission.typing.open': 'Open System Settings',
-  'permission.typing.accessibilityTitle': 'Herald OS needs Accessibility permission',
-  'permission.typing.accessibilityDetail': 'Typing an emoji or dictation into another app needs it. Turn on Herald OS in System Settings > Privacy & Security > Accessibility. Until then, what you pick or dictate stays on the clipboard.',
-  'permission.typing.automationTitle': 'Herald OS needs Automation permission',
-  'permission.typing.automationDetail': 'Typing an emoji or dictation into another app needs it. In System Settings > Privacy & Security > Automation, turn on System Events under Herald OS. Until then, what you pick or dictate stays on the clipboard.',
+  'permission.typing.accessibilityTitle': 'MAXX OS needs Accessibility permission',
+  'permission.typing.accessibilityDetail': 'Typing an emoji or dictation into another app needs it. Turn on MAXX OS in System Settings > Privacy & Security > Accessibility. Until then, what you pick or dictate stays on the clipboard.',
+  'permission.typing.automationTitle': 'MAXX OS needs Automation permission',
+  'permission.typing.automationDetail': 'Typing an emoji or dictation into another app needs it. In System Settings > Privacy & Security > Automation, turn on System Events under MAXX OS. Until then, what you pick or dictate stays on the clipboard.',
 
   'app.overview': 'Overview',
   'app.hermes': 'Hermes',
+  'app.maxxIa': 'MAXX IA',
   'app.missions': 'Missions',
   'app.memory': 'Memory',
   'app.files': 'Files',
@@ -48,12 +49,12 @@ export const en = {
   'app.captureEditor': 'Markup',
   'app.camera': 'Camera',
   'app.widget': 'Widget',
-  'app.canvas': 'Herald Canvas',
-  'app.docs': 'Herald Docs',
-  'app.sheets': 'Herald Sheets',
-  'app.slides': 'Herald Slides',
+  'app.canvas': 'MAXX Canvas',
+  'app.docs': 'MAXX Docs',
+  'app.sheets': 'MAXX Sheets',
+  'app.slides': 'MAXX Slides',
   'app.room': 'Pet Room',
-  'app.calc': 'Herald Calc',
+  'app.calc': 'MAXX Calc',
   'app.applications': 'Applications',
 
   'space.personal': 'Personal',
@@ -87,7 +88,7 @@ export const en = {
   'terminal.paste': 'Paste',
   'terminal.copyFailed': 'Could not copy the selection',
   'terminal.pasteFailed': 'Could not paste into the Terminal',
-  'terminal.clipboardUnavailable': 'Herald OS could not reach the system clipboard. Try again in a moment.',
+  'terminal.clipboardUnavailable': 'MAXX OS could not reach the system clipboard. Try again in a moment.',
   'terminal.pasteTooLarge': 'Too much to paste',
   // {size} is a size in binary units, such as “1 MiB”.
   'terminal.pasteTooLargeBody': 'The clipboard holds more than {size} of text, more than the Terminal pastes at once.',
@@ -204,7 +205,7 @@ export const en = {
   'overview.makeTheme': 'Make a theme',
   // Left in the composer for the person to finish, so it ends where they go on typing; the
   // herald-os-tailor skill tells Hermes how to make the theme.
-  'overview.makeThemeDraft': 'Make me a Herald OS theme that feels like ',
+  'overview.makeThemeDraft': 'Make me a MAXX OS theme that feels like ',
   'overview.activeMissions': 'Active missions',
   'overview.seeAll': 'See all',
   'overview.noMissions': 'No missions yet',
@@ -237,13 +238,13 @@ export const en = {
   'overview.pickUp.failed': 'Hermes could not catch up',
   'overview.pickUp.empty': 'Nothing to pick up yet',
   // {device} is “Mac” or “computer”; a language may say “this computer” without it.
-  'overview.pickUp.emptyHint': 'When you open Herald OS or come back to this {device}, Hermes suggests where to continue.',
+  'overview.pickUp.emptyHint': 'When you open MAXX OS or come back to this {device}, Hermes suggests where to continue.',
   'overview.pickUp.dismiss': 'Dismiss',
   'overview.pickUp.dismissNamed': 'Dismiss {title}',
   'overview.pickUp.continue': 'Continue',
   'overview.pickUp.continueNamed': 'Continue {title}',
   'overview.pickUp.offer':
-    'When you open Herald OS or come back after a break, Hermes looks at the names of your recent documents, projects, chats and calendar events and suggests where to continue. Never file contents or your screen.',
+    'When you open MAXX OS or come back after a break, Hermes looks at the names of your recent documents, projects, chats and calendar events and suggests where to continue. Never file contents or your screen.',
   'overview.pickUp.notNow': 'Not now',
   'overview.pickUp.turnOn': 'Turn on',
 
@@ -272,7 +273,7 @@ export const en = {
   'overview.day.automation': 'Automation',
   'overview.day.calendarNeeded': 'Calendar access needed',
   'overview.day.calendarAsk': 'Let Hermes read today’s events to plan around them.',
-  'overview.day.calendarDenied': 'Enable Calendars for Herald OS in System Settings > Privacy & Security, then try again.',
+  'overview.day.calendarDenied': 'Enable Calendars for MAXX OS in System Settings > Privacy & Security, then try again.',
   'overview.day.grantAccess': 'Grant access',
   'overview.day.calendarUnavailable': 'Calendar is unavailable on this {device}.',
   'overview.day.nothing': 'Nothing on the calendar today.',
@@ -355,7 +356,7 @@ export const en = {
   'settings.section.accessibility': 'Accessibility',
   'settings.section.about': 'About',
 
-  'settings.general.subtitle': 'How Herald OS starts and where it works.',
+  'settings.general.subtitle': 'How MAXX OS starts and where it works.',
   'settings.appearance.subtitle': 'Theme, accent, wallpaper, fonts and the menu bar.',
   'settings.pet.subtitle':
     "Hermes's petdex mascot on the desktop: it shows what Hermes is doing, holds up approvals, takes questions and files, and stays out of the way. Which pet, its size and on or off are Hermes's own settings, the same in the Hermes CLI, the TUI and Hermes's desktop app.",
@@ -367,24 +368,24 @@ export const en = {
   'settings.agents.subtitle': 'Choose how Hermes works with you.',
   'settings.usage.subtitle': 'How much Hermes has used, and what is left on your plan.',
   // The commands are English phrases, which is what the voice understands.
-  'settings.commands.subtitle': '{count} things Herald OS can do. Say "hey hermes" and say one of these; anything else goes to Hermes, who can use every command too.',
-  'settings.commands.subtitleKey': '{count} things Herald OS can do. Press {key} (or say "hey hermes") and say one of these; anything else goes to Hermes, who can use every command too.',
+  'settings.commands.subtitle': '{count} things MAXX OS can do. Say "hey hermes" and say one of these; anything else goes to Hermes, who can use every command too.',
+  'settings.commands.subtitleKey': '{count} things MAXX OS can do. Press {key} (or say "hey hermes") and say one of these; anything else goes to Hermes, who can use every command too.',
   'settings.privacy.subtitle': 'What Hermes may look at and do on this {device}, and the record of what it did.',
-  'settings.notifications.subtitle': 'These are Herald OS shell preferences. They shape what the shell surfaces; Hermes itself keeps working either way.',
+  'settings.notifications.subtitle': 'These are MAXX OS shell preferences. They shape what the shell surfaces; Hermes itself keeps working either way.',
   'settings.network.subtitle': 'The Hermes runtime this shell talks to, and what Hermes itself is connected to.',
   'settings.storage.subtitle': 'Disks on this {device} and the space Hermes keeps for itself.',
-  'settings.accessibility.subtitle': 'Make Herald OS easier to read and calmer to watch.',
+  'settings.accessibility.subtitle': 'Make MAXX OS easier to read and calmer to watch.',
   'settings.about.subtitle': 'Versions, the runtime underneath, your branding, and where to look when something is off.',
 
   'settings.language.group': 'Language',
   'settings.language.label': 'Display language',
-  'settings.language.hint': 'The language Herald OS is shown in. Not every part is translated yet.',
+  'settings.language.hint': 'The language MAXX OS is shown in. Not every part is translated yet.',
 
   'settings.general.startup': 'Startup',
   'settings.general.fullscreen': 'Launch fullscreen',
-  'settings.general.fullscreenHint': 'Herald OS takes over the screen when it starts. Cmd+Ctrl+F toggles at any time.',
+  'settings.general.fullscreenHint': 'MAXX OS takes over the screen when it starts. Cmd+Ctrl+F toggles at any time.',
   'settings.general.defaultSpace': 'Default Space',
-  'settings.general.defaultSpaceHint': 'The Space Herald OS opens in.',
+  'settings.general.defaultSpaceHint': 'The Space MAXX OS opens in.',
   'settings.general.defaultFolder': 'Default folder',
   'settings.general.chooseDefaultFolder': 'Choose default folder',
   'settings.general.projectsFolder': 'Projects folder',
@@ -392,10 +393,10 @@ export const en = {
   'settings.general.choose': 'Choose…',
   'settings.general.chooseFolderFailed': 'Could not choose folder',
   'settings.general.session': 'Session',
-  'settings.general.restart': 'Restart Herald OS',
+  'settings.general.restart': 'Restart MAXX OS',
   'settings.general.restartHint': 'Stops the Hermes backend this shell started and starts a fresh session.',
   'settings.general.restartButton': 'Restart',
-  'settings.general.quit': 'Quit Herald OS',
+  'settings.general.quit': 'Quit MAXX OS',
   'settings.general.quitHint': 'Stops the Hermes backend this shell started and returns to macOS.',
   'settings.general.quitButton': 'Quit',
   'settings.general.switches': 'Switches',
@@ -411,7 +412,7 @@ export const en = {
   'settings.general.dictationHint': 'Speak in any app and the words are typed where the cursor is; it stops after a pause. Say "comma", "new line" or "press enter".',
   'settings.general.emoji': 'Emoji',
   'settings.general.emojiHintLinux': 'Search and insert an emoji into the app you are typing in.',
-  'settings.general.emojiHintMac': 'The picker inside Herald OS; Ctrl+Cmd+Space opens the macOS one anywhere else.',
+  'settings.general.emojiHintMac': 'The picker inside MAXX OS; Ctrl+Cmd+Space opens the macOS one anywhere else.',
   'settings.general.openEmoji': 'Open the emoji picker',
   'settings.general.open': 'Open',
   'settings.general.keymap': 'Keymap',
@@ -419,8 +420,8 @@ export const en = {
     'Omarchy: Super+C, X and V copy, cut and paste in every app, terminals included; voice moves to Super+Shift+V and centring a column to Super+Ctrl+C.',
   'settings.general.terminal': 'Terminal',
   'settings.general.terminalHint': 'What Super+Return opens. Install Ghostty, Alacritty or Kitty from Software to add them here.',
-  'settings.general.heraldTerminal': 'Herald OS Terminal',
-  'settings.general.office': 'Herald Office',
+  'settings.general.heraldTerminal': 'MAXX OS Terminal',
+  'settings.general.office': 'MAXX Office',
   'settings.general.commentName': 'Name on comments',
   'settings.general.commentNameHint': 'Shown on the comments and notes you add in Docs and Sheets and saved in those files; clear it to be asked again.',
   'settings.general.clear': 'Clear',
@@ -457,7 +458,7 @@ export const en = {
   'settings.agents.connectionError': 'Connection error',
   'settings.agents.disconnected': 'Disconnected',
   // Shown in place of the gateway client's own "gateway not connected", which is English.
-  'settings.agents.gatewayNotConnected': 'Not connected to Hermes yet. Herald OS keeps trying.',
+  'settings.agents.gatewayNotConnected': 'Not connected to Hermes yet. MAXX OS keeps trying.',
   'settings.agents.account': 'Account',
   'settings.agents.modelPerformance': 'Model & performance',
   'settings.agents.privacyControl': 'Privacy & control',
@@ -601,22 +602,22 @@ export const en = {
   // {code} is an HTTP status code, such as 400.
   'settings.agents.memoryProvider.noStatus': 'Hermes did not send its memory status (HTTP {code}).',
   'settings.agents.memoryProvider.refused': 'Hermes refused the change (HTTP {code}).',
-  'settings.agents.memoryProvider.badStatus': 'Hermes sent a memory status Herald does not understand.',
+  'settings.agents.memoryProvider.badStatus': 'Hermes sent a memory status MAXX OS does not understand.',
 
   'settings.agents.toolSearch.label': 'Tool search',
-  'settings.agents.toolSearch.hint': "Hermes looks plugin and MCP tools up when it needs them, using fewer prompt tokens. Off, Herald OS's system tools stay at hand instead of behind a search. Applies to every Hermes session, from its next conversation.",
+  'settings.agents.toolSearch.hint': "Hermes looks plugin and MCP tools up when it needs them, using fewer prompt tokens. Off, MAXX OS's system tools stay at hand instead of behind a search. Applies to every Hermes session, from its next conversation.",
   'settings.agents.toolSearch.on': 'Tool search on',
   'settings.agents.toolSearch.off': 'Tool search off',
   'settings.agents.toolSearch.onBody': 'Hermes looks plugin and MCP tools up when it needs them.',
-  'settings.agents.toolSearch.offBody': "Herald OS's system tools stay directly callable.",
+  'settings.agents.toolSearch.offBody': "MAXX OS's system tools stay directly callable.",
   'settings.agents.toolSearch.failed': 'Could not change tool search',
-  'settings.agents.toolSearch.bridgeError': 'Herald OS could not set its system tools up in Hermes: {error}. It tries again at its next start.',
+  'settings.agents.toolSearch.bridgeError': 'MAXX OS could not set its system tools up in Hermes: {error}. It tries again at its next start.',
 
-  // First-run setup on the Herald OS image: who the computer is for, their account, Wi-Fi and Hermes.
-  'firstRun.label': 'Set up Herald OS',
+  // First-run setup on the MAXX OS image: who the computer is for, their account, Wi-Fi and Hermes.
+  'firstRun.label': 'Set up MAXX OS',
   'firstRun.next': 'Next',
   'firstRun.later': 'Later',
-  'firstRun.welcome.title': 'Welcome to Herald OS',
+  'firstRun.welcome.title': 'Welcome to MAXX OS',
   'firstRun.welcome.text': 'A computer you can talk to. A few questions and it is yours.',
   'firstRun.welcome.forMe': 'It is for me',
   'firstRun.welcome.forMeHint': 'Choose your name, a password and sign in to Hermes.',
@@ -625,9 +626,9 @@ export const en = {
   'firstRun.welcome.forSomeoneElseHint': 'Get it online now; they finish setup when they first start it.',
   'firstRun.account.title': 'Your name and password',
   'firstRun.account.titleSignedIn': 'Your name',
-  'firstRun.account.text': 'Herald OS greets you by name. The password unlocks the screen and approves changes to the system.',
+  'firstRun.account.text': 'MAXX OS greets you by name. The password unlocks the screen and approves changes to the system.',
   // herald-os password is the command that changes it, and stays as it is.
-  'firstRun.account.textSignedIn': 'Herald OS greets you by name. You signed in with your password, which also unlocks the screen and approves changes to the system; herald-os password changes it.',
+  'firstRun.account.textSignedIn': 'MAXX OS greets you by name. You signed in with your password, which also unlocks the screen and approves changes to the system; herald-os password changes it.',
   'firstRun.account.name': 'Name',
   'firstRun.account.password': 'Password (at least 8 characters)',
   'firstRun.account.passwordAgain': 'The same password again',
@@ -650,16 +651,16 @@ export const en = {
   'firstRun.hermes.otherProvider': 'Use another provider',
   'firstRun.done.title': 'You are all set',
   // Super+Space and Super+M are keyboard shortcuts, and stay as they are.
-  'firstRun.done.text': 'Press Super+Space to ask Hermes about anything on screen, or Super+M for the Herald OS menu.',
-  'firstRun.done.start': 'Start using Herald OS',
+  'firstRun.done.text': 'Press Super+Space to ask Hermes about anything on screen, or Super+M for the MAXX OS menu.',
+  'firstRun.done.start': 'Start using MAXX OS',
   'firstRun.handOver.title': 'Ready to hand over',
   'firstRun.handOver.text': 'The next time it starts, it asks its new owner for a name, a password and their Hermes sign-in.',
   'firstRun.handOver.textEncrypted': 'The next time it starts, it asks for the disk password chosen when it was installed: tell it to its new owner. Setup then asks them for a name, a password, a disk password of their own and their Hermes sign-in.',
   'firstRun.handOver.notEncrypted': 'This disk is not encrypted: anyone who has it can read its files, and a reset deletes them but is not a secure erase.',
   'firstRun.handOver.encryptionUnknown':
-    'Herald OS could not tell whether this disk is encrypted. If the computer asks for a disk password when it starts, tell the new owner the one chosen when it was installed; if it does not, anyone who has the disk can read its files, and a reset is not a secure erase.',
+    'MAXX OS could not tell whether this disk is encrypted. If the computer asks for a disk password when it starts, tell the new owner the one chosen when it was installed; if it does not, anyone who has the disk can read its files, and a reset is not a secure erase.',
   'firstRun.handOver.done': 'Done',
-  // The disk password unlocks the encrypted disk when the computer starts, before Herald OS does.
+  // The disk password unlocks the encrypted disk when the computer starts, before MAXX OS does.
   'firstRun.disk.title': 'Your disk password',
   // TPM (the computer's security chip) stays as it is.
   'firstRun.disk.text':
@@ -679,7 +680,7 @@ export const en = {
   // TPM (the computer's security chip) and FIDO2 stay as they are.
   'firstRun.disk.tpmKey': 'That is not the disk password: it belongs to unlocking with the TPM. Type the password the computer asked for when it started; TPM unlocking stays as it is. Nothing was changed.',
   'firstRun.disk.fido2Key': 'That is not the disk password: it belongs to unlocking with a security key (FIDO2). Type the password the computer asked for when it started; the security key keeps working. Nothing was changed.',
-  'firstRun.disk.otherKey': 'That is not the disk password: it belongs to another way of unlocking the disk, or Herald OS could not tell whether it does. Type the password the computer asked for when it started. Nothing was changed.',
+  'firstRun.disk.otherKey': 'That is not the disk password: it belongs to another way of unlocking the disk, or MAXX OS could not tell whether it does. Type the password the computer asked for when it started. Nothing was changed.',
   'firstRun.disk.newIsOtherKey': 'That new disk password already belongs to another way of unlocking the disk, such as the recovery key. Choose a different one. Nothing was changed.',
   'firstRun.disk.sameAsCurrent': 'The new disk password is the one you typed when the computer started. Choose a different one.',
   // herald-os password --disk --new-owner stays as it is.
@@ -710,7 +711,7 @@ export const en = {
   'firstRun.keyring.text': 'Apps such as VS Code, Signal and GitHub CLI keep passwords and sign-ins in a keyring. The disk it is kept on is not encrypted, so choose how the keyring is protected.',
   'firstRun.keyring.textPartial': 'Apps such as VS Code, Signal and GitHub CLI keep passwords and sign-ins in a keyring. The disk it is kept on is encrypted, but not all of it is protected, so choose how the keyring is protected.',
   'firstRun.keyring.textUnknown':
-    'Apps such as VS Code, Signal and GitHub CLI keep passwords and sign-ins in a keyring. Herald OS could not tell whether the disk it is kept on is encrypted, so choose how the keyring is protected.',
+    'Apps such as VS Code, Signal and GitHub CLI keep passwords and sign-ins in a keyring. MAXX OS could not tell whether the disk it is kept on is encrypted, so choose how the keyring is protected.',
   'firstRun.keyring.password': 'A keyring password',
   'firstRun.keyring.passwordHint': 'Saved passwords are encrypted with it. After each start, the first app that needs one asks for it. If you forget it, they are lost and you sign in to those apps again.',
   'firstRun.keyring.open': 'No keyring password',
@@ -737,7 +738,7 @@ export const en = {
   // {voice} is a voice.name message that begins the sentence; {system} is voice.name.mac or
   // voice.name.system; {device} is “Mac” or “computer”, and a language may say “this computer” without it.
   'voice.fallback.title': 'Voice',
-  'voice.fallback.usingSystem': "{voice} isn't working right now, so Herald OS is using {system}.",
+  'voice.fallback.usingSystem': "{voice} isn't working right now, so MAXX OS is using {system}.",
   'voice.fallback.noSystemVoice': "{voice} isn't working right now, and there's no system voice on this {device} that can stand in.",
   'voice.fallback.systemFailed': "{voice} isn't working right now, and {system} couldn't speak either.",
   'voice.fallback.updateHermes': 'Updating Hermes usually fixes it.',
@@ -754,5 +755,5 @@ export const en = {
   'voice.test.usedSystem': '{voice} failed, so {system} said hello instead.',
   'voice.test.noSystemVoice': "{voice} failed, and there's no system voice on this {device} that can stand in.",
   'voice.test.systemFailed': "{voice} failed, and {system} couldn't speak either.",
-  'voice.test.playbackFailed': "Herald OS couldn't play the test sentence."
+  'voice.test.playbackFailed': "MAXX OS couldn't play the test sentence."
 } as const

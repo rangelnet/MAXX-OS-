@@ -44,7 +44,7 @@ import { ActivityHub } from './room/activity.ts'
 import { registerRoomIpc } from './room/ipc.ts'
 import { RoomLog } from './room/log.ts'
 import { SwitchService } from './switches.ts'
-import { hermesHome, heraldOsDataDir, isDev, setPackaged } from './paths.ts'
+import { hermesHome, heraldOsDataDir, isDev, setAppNamePreservingUserData, setPackaged } from './paths.ts'
 import { readPrefs, writePrefs } from './prefs.ts'
 import { handleAdoptLegacyNotify, sendPrefsToOthers } from './prefs-ipc.ts'
 import { forwardRendererConsole } from './renderer-console.ts'
@@ -65,7 +65,7 @@ import { WallpaperService } from './shell/wallpaper.ts'
 import { appIconPath, createMainWindow } from './window.ts'
 
 setPackaged(app.isPackaged)
-app.setName('Herald OS')
+setAppNamePreservingUserData(app, 'MAXX OS')
 // Chromium turns WebGL off where it does not accelerate the graphics (virtual machines, drivers it
 // blocklists), and Herald Canvas draws with WebGL: there it falls back to SwiftShader, Chromium's
 // software renderer, rather than to nothing. Machines it accelerates are not affected.
@@ -348,7 +348,7 @@ function createWindow(): void {
 }
 
 app.whenReady().then(async () => {
-  log('main', `Herald OS ${app.getVersion()} starting (dev=${isDev()}, mode=${mode}, HERMES_HOME=${hermesHome()})`)
+  log('main', `MAXX OS ${app.getVersion()} starting (dev=${isDev()}, mode=${mode}, HERMES_HOME=${hermesHome()})`)
   // A packaged app carries its icon in the bundle; `electron .` would show Electron's.
   const icon = isDev() ? appIconPath() : undefined
 
